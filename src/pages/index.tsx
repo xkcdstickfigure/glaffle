@@ -1,3 +1,3 @@
 export default function Page() {
-	return <p>hello</p>
+	return <p className="text-blue-500">hello</p>
 }
