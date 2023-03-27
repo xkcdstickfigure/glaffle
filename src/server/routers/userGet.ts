@@ -14,6 +14,10 @@ export const userGet = procedure
 				username: username.toLowerCase(),
 			},
 		})
+		if (!user) return null
 
-		return user
+		return {
+			id: user.id,
+			username: user.username,
+		}
 	})

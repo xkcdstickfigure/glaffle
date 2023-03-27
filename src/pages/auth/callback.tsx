@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		})
 
 		// set cookie
-		setCookie("front-token", session.token, {
+		setCookie("token", session.token, {
 			req,
 			res,
 			maxAge: 60 * 60 * 24 * 365,

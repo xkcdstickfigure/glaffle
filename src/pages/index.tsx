@@ -1,7 +1,7 @@
 import { trpc } from "@/lib/trpc"
 
 export default function Page() {
-	let { data: user } = trpc.userGet.useQuery({ username: "sfig" })
+	let { data: profile } = trpc.profile.useQuery()
 
-	return <pre>{JSON.stringify(user, undefined, "	")}</pre>
+	return <pre>{JSON.stringify(profile, undefined, "	")}</pre>
 }
