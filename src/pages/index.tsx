@@ -1,11 +1,7 @@
 import { trpc } from "@/lib/trpc"
 
 export default function Page() {
-	let hello = trpc.hello.useQuery({ text: "archie" })
+	let { data: user } = trpc.userGet.useQuery({ username: "sfig" })
 
-	return (
-		<p className="text-blue-500">
-			{JSON.stringify({ greeting: hello.data?.greeting ?? null })}
-		</p>
-	)
+	return <pre>{JSON.stringify(user, undefined, "	")}</pre>
 }
