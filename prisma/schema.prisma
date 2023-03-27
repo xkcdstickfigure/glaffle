@@ -14,4 +14,17 @@ model user {
   email     String
   name      String
   createdAt DateTime @default(now())
+
+  session session[]
+}
+
+model session {
+  id        String   @id @default(uuid()) @db.Uuid
+  token     String   @unique
+  address   String
+  userAgent String
+  createdAt DateTime @default(now())
+
+  user   user   @relation(fields: [userId], references: [id])
+  userId String @db.Uuid
 }
