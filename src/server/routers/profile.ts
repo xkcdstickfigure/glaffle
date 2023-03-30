@@ -1,7 +1,7 @@
 import { procedure } from "../trpc"
 
 export const profile = procedure.query(async ({ ctx: { me } }) => {
-	if (!me) return null
+	if (!me) return
 
 	return {
 		id: me.id,

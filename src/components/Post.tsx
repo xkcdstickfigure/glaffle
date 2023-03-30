@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const Post = ({ username, content, date }: Props) => (
-	<div className="bg-neutral-800 rounded-md shadow-sm p-4 space-y-2">
+	<div className="bg-neutral-800 rounded-md p-4 space-y-2">
 		<div className="flex space-x-2 items-center">
 			<Link href={`/${username}`}>
 				<div className="w-7 h-7 bg-emerald-400 rounded-md" />
