@@ -13,6 +13,7 @@ model user {
   googleId     String   @unique
   email        String
   name         String
+  avatar       String?
   streamActive Boolean  @default(false)
   streamSecret String?
   createdAt    DateTime @default(now()) @db.Timestamptz(3)

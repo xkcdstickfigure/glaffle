@@ -20,6 +20,7 @@ export const feed = procedure.query(async () => {
 			author: {
 				id: post.user.id,
 				username: post.user.username,
+				avatar: post.user.avatar,
 			},
 		})),
 	}

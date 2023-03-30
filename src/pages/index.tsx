@@ -14,7 +14,9 @@ export default function Page() {
 				{feed?.posts.map((post) => (
 					<Post
 						key={post.id}
-						username={post.author.username}
+						authorId={post.author.id}
+						authorUsername={post.author.username}
+						authorAvatar={post.author.avatar}
 						content={post.content}
 						date={new Date(post.date)}
 					/>
