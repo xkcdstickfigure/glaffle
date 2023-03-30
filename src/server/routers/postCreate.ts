@@ -9,7 +9,7 @@ export const postCreate = procedure
 		})
 	)
 	.mutation(async ({ input: { content }, ctx: { me } }) => {
-		if (!me) return
+		if (!me) return null
 
 		// format content
 		content = content
@@ -17,7 +17,7 @@ export const postCreate = procedure
 			.map((l) => l.trim())
 			.filter((l) => !!l)
 			.join("\n")
-		if (!content) return
+		if (!content) return null
 
 		// create post
 		let post = await prisma.post.create({

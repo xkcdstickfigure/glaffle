@@ -14,10 +14,11 @@ export const userGet = procedure
 				username: username.toLowerCase(),
 			},
 		})
-		if (!user) return
+		if (!user) return null
 
 		return {
 			id: user.id,
 			username: user.username,
+			streamActive: user.streamActive,
 		}
 	})
