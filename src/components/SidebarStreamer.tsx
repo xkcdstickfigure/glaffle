@@ -27,7 +27,7 @@ export const SidebarStreamer = ({ id, username, avatar, startedAt }: Props) => {
 			)}
 
 			<div>
-				<p className="text-lg">{username}</p>
+				<p className="font-medium">{username}</p>
 				<p className="text-xs text-neutral-400">
 					{minutes > 1 ? `Started ${minutes} minutes ago` : "Started just now"}
 				</p>
