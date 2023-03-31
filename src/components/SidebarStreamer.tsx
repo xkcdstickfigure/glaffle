@@ -14,7 +14,7 @@ export const SidebarStreamer = ({ id, username, avatar, startedAt }: Props) => {
 
 	return (
 		<Link href={`/${username}`} className="flex items-center space-x-2">
-			{avatar && (
+			{avatar ? (
 				<img
 					src={`https://files.glaffle.com/avatars/${encodeURIComponent(
 						id
@@ -22,6 +22,8 @@ export const SidebarStreamer = ({ id, username, avatar, startedAt }: Props) => {
 					alt=""
 					className="w-10 h-10 bg-neutral-700 rounded-md"
 				/>
+			) : (
+				<div className="w-10 h-10 bg-emerald-400 rounded-md" />
 			)}
 
 			<div>

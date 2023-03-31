@@ -24,10 +24,10 @@ export const Post = ({
 							authorId
 						)}/${encodeURIComponent(authorAvatar)}/128.png`}
 						alt=""
-						className="w-7 h-7 bg-neutral-700 rounded-md"
+						className="w-8 h-8 bg-neutral-700 rounded-md"
 					/>
 				) : (
-					<div className="w-7 h-7 bg-emerald-400 rounded-md" />
+					<div className="w-8 h-8 bg-emerald-400 rounded-md" />
 				)}
 			</Link>
 
