@@ -17,6 +17,7 @@ export const feed = procedure.query(async () => {
 			id: post.id,
 			content: post.content,
 			date: post.createdAt,
+			replyCount: 0,
 			author: {
 				id: post.user.id,
 				username: post.user.username,
