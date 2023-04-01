@@ -21,7 +21,6 @@ model user {
   streamStartedAt DateTime?
 
   sessions session[]
-  posts    post[]
 }
 
 model session {
@@ -29,15 +28,6 @@ model session {
   token     String   @unique
   address   String
   userAgent String
-  createdAt DateTime @default(now()) @db.Timestamptz(3)
-
-  user   user   @relation(fields: [userId], references: [id])
-  userId String @db.Uuid
-}
-
-model post {
-  id        String   @id @default(uuid()) @db.Uuid
-  content   String
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 
   user   user   @relation(fields: [userId], references: [id])

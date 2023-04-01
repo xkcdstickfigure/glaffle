@@ -1,68 +1,43 @@
 import { trpc } from "@/lib/trpc"
 import Link from "next/link"
-import { SidebarStreamer } from "./SidebarStreamer"
 
 export const Sidebar = () => {
-	let { data: profile, isLoading: profileLoading } = trpc.profile.useQuery()
 	let { data: activity } = trpc.activity.useQuery()
 
 	return (
-		<div className="bg-neutral-800 w-64 flex-shrink-0 flex flex-col justify-between">
-			<div className="space-y-8">
-				<Link
-					href="/"
-					className="flex space-x-2 justify-center items-center mt-8"
-				>
-					<div className="w-8 h-8 rounded-md bg-emerald-400" />
-					<p className="text-3xl font-semibold">Glaffle</p>
-				</Link>
+		<div className="bg-neutral-800 w-64 flex-shrink-0 px-4 py-8 space-y-4">
+			<p className="uppercase font-semibold text-sm">Streaming Now</p>
 
-				{activity && activity.streamers.length > 0 && (
-					<div className="px-4 space-y-2">
-						<p className="uppercase font-semibold text-sm">Streaming Now</p>
-						<div className="space-y-4">
-							{activity.streamers.map((streamer) => (
-								<SidebarStreamer key={streamer.id} {...streamer} />
-							))}
-						</div>
-					</div>
-				)}
-			</div>
+			{activity?.streamers.map(({ id, username, avatar, startedAt }) => {
+				let minutes = Math.floor(
+					(new Date().getTime() - new Date(startedAt).getTime()) / (1000 * 60)
+				)
 
-			{!profileLoading &&
-				(profile ? (
-					<div className="flex items-center space-x-2 p-4">
-						{profile.avatar ? (
+				return (
+					<Link href={`/${username}`} className="flex items-center space-x-2">
+						{avatar ? (
 							<img
 								src={`https://files.glaffle.com/avatars/${encodeURIComponent(
-									profile.id
-								)}/${encodeURIComponent(profile.avatar)}/128.png`}
+									id
+								)}/${encodeURIComponent(avatar)}/128.png`}
 								alt=""
-								className="w-8 h-8 bg-neutral-700 rounded-md"
+								className="w-10 h-10 bg-neutral-700 rounded-md"
 							/>
 						) : (
-							<div className="w-8 h-8 bg-emerald-400 rounded-md" />
+							<div className="w-10 h-10 bg-emerald-400 rounded-md" />
 						)}
 
-						<p className="text-lg">{profile.username}</p>
-					</div>
-				) : (
-					<div className="bg-neutral-700 rounded-md m-2 p-4 space-y-4">
-						<div className="space-y-1">
-							<p className="text-lg font-medium">Find Your People</p>
+						<div>
+							<p className="font-medium">{username}</p>
 							<p className="text-xs text-neutral-400">
-								Join the community with a Glaffle account - no password needed.
+								{minutes > 1
+									? `Started ${minutes} minutes ago`
+									: "Started just now"}
 							</p>
 						</div>
-
-						<Link
-							href="/auth"
-							className="block py-1 text-center rounded-md bg-emerald-600 text-white"
-						>
-							Sign in with Google
-						</Link>
-					</div>
-				))}
+					</Link>
+				)
+			})}
 		</div>
 	)
 }
