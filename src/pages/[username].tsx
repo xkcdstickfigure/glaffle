@@ -14,7 +14,7 @@ export default function Page() {
 	})
 
 	return (
-		<Layout title={user?.username && "@" + user.username}>
+		<Layout title={user?.username}>
 			{user &&
 				(user.streamActive ? (
 					<div className="flex h-full">
