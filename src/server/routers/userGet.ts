@@ -18,7 +18,7 @@ export const userGet = procedure
 
 		return {
 			id: user.id,
-			username: user.username,
+			username: user.usernameDisplay,
 			streamActive: user.streamActive,
 		}
 	})

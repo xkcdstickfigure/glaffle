@@ -5,24 +5,25 @@ import { Stream } from "@/components/Stream"
 
 export default function Page() {
 	let router = useRouter()
-	let { username } = router.query
+	let username =
+		typeof router.query.username === "string" ? router.query.username : ""
 
 	let { data: user } = trpc.userGet.useQuery({
-		username: typeof username === "string" ? username : "",
+		username: username.toLowerCase(),
 	})
 
 	return (
 		<Layout title={user?.username && "@" + user.username}>
-			{user && (
-				<div className="space-y-4">
-					<p>
-						{user.username} is{" "}
-						{user.streamActive ? "streaming!" : "not streaming"}
-					</p>
-
-					{user.streamActive && <Stream id={user.id} />}
-				</div>
-			)}
+			{user &&
+				(user.streamActive ? (
+					<div className="flex space-x-4">
+						<div className="w-full bg-neutral-900">
+							<Stream id={user.id} />
+						</div>
+					</div>
+				) : (
+					<p>{user.username} is not streaming</p>
+				))}
 		</Layout>
 	)
 }

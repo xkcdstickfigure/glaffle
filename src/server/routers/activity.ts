@@ -15,7 +15,7 @@ export const activity = procedure.query(async () => {
 	return {
 		streamers: streamers.map((streamer) => ({
 			id: streamer.id,
-			username: streamer.username,
+			username: streamer.usernameDisplay,
 			avatar: streamer.avatar,
 			startedAt: streamer.streamStartedAt ?? new Date(),
 		})),

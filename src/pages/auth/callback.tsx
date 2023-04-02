@@ -19,12 +19,14 @@ export const getServerSideProps: GetServerSideProps = async ({
 		if (!profile.emailVerified) throw Error("email not verified")
 
 		// create user
+		let username = crypto.randomBytes(4).toString("hex")
 		let user = await prisma.user.upsert({
 			where: {
 				googleId: profile.id,
 			},
 			create: {
-				username: crypto.randomBytes(4).toString("hex"),
+				username: username,
+				usernameDisplay: username,
 				googleId: profile.id,
 				email: profile.email,
 				name: profile.name,
