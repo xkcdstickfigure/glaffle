@@ -5,7 +5,7 @@ export const Sidebar = () => {
 	let { data: activity } = trpc.activity.useQuery()
 
 	return (
-		<div className="bg-neutral-800 w-64 flex-shrink-0 px-4 py-8 space-y-4">
+		<div className="bg-neutral-900 border-r border-neutral-800 w-64 flex-shrink-0 p-4 space-y-4">
 			<p className="uppercase font-semibold text-sm">Streaming Now</p>
 
 			{activity?.streamers.map(({ id, username, avatar, startedAt }) => {

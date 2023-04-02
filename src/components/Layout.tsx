@@ -1,5 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from "react"
 import Head from "next/head"
+import { Header } from "./Header"
 import { Sidebar } from "./Sidebar"
 
 interface Props
@@ -13,10 +14,14 @@ export const Layout = ({ title, children }: Props) => (
 			<title>{`Glaffle${title ? " | " + title : ""}`}</title>
 		</Head>
 
-		<div className="flex h-full">
-			<Sidebar />
+		<div className="h-full flex flex-col">
+			<Header />
 
-			<div className="flex-grow p-8 overflow-y-auto">{children}</div>
+			<div className="flex-grow flex overflow-auto">
+				<Sidebar />
+
+				<div className="flex-grow overflow-auto">{children}</div>
+			</div>
 		</div>
 	</>
 )
