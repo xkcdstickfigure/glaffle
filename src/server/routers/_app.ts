@@ -2,13 +2,13 @@ import { router } from "../trpc"
 import { profile } from "./profile"
 import { activity } from "./activity"
 import { userGet } from "./userGet"
-import { chatSend } from "./chatSend"
+import { streamChatSend } from "./streamChatSend"
 
 export const appRouter = router({
 	profile,
 	activity,
 	userGet,
-	chatSend,
+	streamChatSend,
 })
 
 export type AppRouter = typeof appRouter

@@ -24,7 +24,7 @@ export default function Page() {
 							</div>
 						</div>
 
-						<StreamChat />
+						<StreamChat channel={user.id} />
 					</div>
 				) : (
 					<p>{user.username} is not streaming</p>

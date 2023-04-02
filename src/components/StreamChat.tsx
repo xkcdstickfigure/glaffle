@@ -2,17 +2,21 @@ import { useState } from "react"
 import clsx from "clsx"
 import { trpc } from "@/lib/trpc"
 
-export const StreamChat = () => {
+interface Props {
+	channel: string
+}
+
+export const StreamChat = ({ channel }: Props) => {
 	let [value, setValue] = useState("")
 	let [sending, setSending] = useState(false)
-	let mutation = trpc.chatSend.useMutation()
+	let mutation = trpc.streamChatSend.useMutation()
 
 	let keyPress = async (key: string) => {
 		if (key === "Enter") {
 			let v = value.trim()
 			if (v) {
 				setSending(true)
-				await mutation.mutateAsync({ content: v })
+				await mutation.mutateAsync({ content: v, channel })
 				setSending(false)
 				setValue("")
 			}
