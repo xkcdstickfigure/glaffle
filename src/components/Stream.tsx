@@ -19,7 +19,7 @@ export const Stream = ({ id }: Props) => {
 			hls.attachMedia(ref.current)
 			return () => hls.destroy()
 		}
-	}, [ref])
+	}, [id, ref])
 
-	return <video ref={ref} autoPlay muted controls />
+	return <video ref={ref} autoPlay muted controls className="w-full" />
 }
