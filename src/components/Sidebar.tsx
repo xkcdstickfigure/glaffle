@@ -2,7 +2,9 @@ import { trpc } from "@/lib/trpc"
 import Link from "next/link"
 
 export const Sidebar = () => {
-	let { data: activity } = trpc.activity.useQuery()
+	let { data: activity } = trpc.activity.useQuery(undefined, {
+		refetchInterval: 10000,
+	})
 
 	return (
 		<div className="bg-neutral-900 border-r border-neutral-800 w-64 flex-shrink-0 p-4 space-y-4">
@@ -14,7 +16,11 @@ export const Sidebar = () => {
 				)
 
 				return (
-					<Link href={`/${username}`} className="flex items-center space-x-2">
+					<Link
+						key={id}
+						href={`/${username}`}
+						className="flex items-center space-x-2"
+					>
 						{avatar ? (
 							<img
 								src={`https://files.glaffle.com/avatars/${encodeURIComponent(
