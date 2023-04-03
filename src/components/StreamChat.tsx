@@ -49,14 +49,13 @@ export const StreamChat = ({ pusherKey, channelId }: Props) => {
 			cluster: "eu",
 		})
 
-		let channelName = "stream-chat-" + channelId
-		let channel = pusher.subscribe(channelName)
+		let channel = pusher.subscribe("stream-chat-" + channelId)
 
 		channel.bind("message-create", ({ message }: { message: Message }) => {
 			setMessages((m) => [...m, message])
 		})
 
-		return () => pusher.unsubscribe(channelName)
+		return () => pusher.disconnect()
 	}, [pusherKey, channelId])
 
 	// autoscroll
