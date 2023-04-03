@@ -24,6 +24,8 @@ model user {
   sessions             session[]
   streamMessageAuthor  streamMessage[] @relation("streamMessageAuthor")
   streamMessageChannel streamMessage[] @relation("streamMessageChannel")
+  streamViewUser       streamView[]    @relation("streamViewUser")
+  streamViewChannel    streamView[]    @relation("streamViewChannel")
 }
 
 model session {
@@ -46,5 +48,16 @@ model streamMessage {
   authorId String @db.Uuid
 
   channel   user   @relation("streamMessageChannel", fields: [channelId], references: [id])
+  channelId String @db.Uuid
+}
+
+model streamView {
+  id        String   @id @default(uuid()) @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  user   user   @relation("streamViewUser", fields: [userId], references: [id])
+  userId String @db.Uuid
+
+  channel   user   @relation("streamViewChannel", fields: [channelId], references: [id])
   channelId String @db.Uuid
 }
