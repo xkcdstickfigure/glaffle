@@ -1,11 +1,11 @@
-import { DetailedHTMLProps, HTMLAttributes } from "react"
+import { ReactNode } from "react"
 import Head from "next/head"
 import { Header } from "./Header"
 import { Sidebar } from "./Sidebar"
 
-interface Props
-	extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
+interface Props {
 	title?: string
+	children?: ReactNode
 }
 
 export const Layout = ({ title, children }: Props) => (
