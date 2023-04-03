@@ -20,6 +20,7 @@ model user {
   streamSecret    String?
   streamActive    Boolean   @default(false)
   streamStartedAt DateTime?
+  streamTitle     String?
 
   sessions             session[]
   streamMessageAuthor  streamMessage[] @relation("streamMessageAuthor")

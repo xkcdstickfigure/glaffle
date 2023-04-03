@@ -52,12 +52,20 @@ export default function Page() {
 											className="w-20 h-20"
 										/>
 
-										<h1 className="font-semibold text-4xl">{user.username}</h1>
+										<div>
+											<h1 className="text-4xl font-semibold">
+												{user.username}
+											</h1>
+
+											<h2 className="text-2xl text-neutral-400 font-light">
+												{user.streamTitle ?? "Untitled Stream"}
+											</h2>
+										</div>
 									</div>
 
-									<div className="space-y-2">
+									<div className="space-y-2 flex-shrink-0">
 										<p className="text-neutral-400 text-sm text-right">
-											<span className="font-semibold text-white">
+											<span className="text-white font-semibold">
 												{user.viewerCount}
 											</span>{" "}
 											{user.viewerCount === 1 ? "viewer" : "viewers"}

@@ -59,6 +59,7 @@ export const userGet = procedure
 			username: user.usernameDisplay,
 			avatar: user.avatar,
 			streamActive: user.streamActive,
+			streamTitle: user.streamTitle,
 			viewerCount,
 			viewers:
 				viewers?.map(({ user: viewer }) => ({
