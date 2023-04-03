@@ -40,13 +40,15 @@ export const streamChatSend = procedure
 		})
 
 		// emit to pusher
-		pusher.trigger("stream-chat-" + channel.id, "message-create", {
-			message: {
-				id: message.id,
-				authorId: me.id,
-				authorUsername: me.usernameDisplay,
-				content: message.content,
-				date: message.createdAt,
-			},
-		})
+		try {
+			pusher.trigger("stream-chat-" + channel.id, "message-create", {
+				message: {
+					id: message.id,
+					authorId: me.id,
+					authorUsername: me.usernameDisplay,
+					content: message.content,
+					date: message.createdAt,
+				},
+			})
+		} catch (err) {}
 	})
