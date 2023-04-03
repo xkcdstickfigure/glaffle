@@ -24,7 +24,11 @@ export default function Page() {
 							</div>
 						</div>
 
-						<StreamChat channel={user.id} />
+						<StreamChat
+							key={`stream-chat-${user.id}`}
+							pusherKey={user.pusherKey}
+							channelId={user.id}
+						/>
 					</div>
 				) : (
 					<p>{user.username} is not streaming</p>

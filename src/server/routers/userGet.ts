@@ -1,6 +1,7 @@
 import { z } from "zod"
 import { procedure } from "../trpc"
 import { prisma } from "../prisma"
+import { pusherKey } from "@/env"
 
 export const userGet = procedure
 	.input(
@@ -20,5 +21,6 @@ export const userGet = procedure
 			id: user.id,
 			username: user.usernameDisplay,
 			streamActive: user.streamActive,
+			pusherKey,
 		}
 	})

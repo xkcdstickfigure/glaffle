@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const Stream = ({ id }: Props) => {
-	const ref = useRef(null)
+	const ref = useRef<HTMLVideoElement>(null)
 
 	useEffect(() => {
 		if (ref.current) {
