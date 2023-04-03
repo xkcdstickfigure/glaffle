@@ -1,11 +1,10 @@
 import { useEffect, useState, useRef, UIEventHandler } from "react"
 import { trpc } from "@/lib/trpc"
-import Pusher from "pusher-js"
 import Link from "next/link"
 import clsx from "clsx"
+import { usePusher } from "@/lib/pusher"
 
 interface Props {
-	pusherKey: string
 	channelId: string
 }
 
@@ -27,7 +26,7 @@ const colors = [
 	"text-orange-400",
 ]
 
-export const StreamChat = ({ pusherKey, channelId }: Props) => {
+export const StreamChat = ({ channelId }: Props) => {
 	let [value, setValue] = useState("")
 	let mutation = trpc.streamChatSend.useMutation()
 
@@ -43,20 +42,24 @@ export const StreamChat = ({ pusherKey, channelId }: Props) => {
 	}
 
 	// subscribe to pusher channel
+	let pusher = usePusher()
 	let [messages, setMessages] = useState<Message[]>([])
 	useEffect(() => {
-		let pusher = new Pusher(pusherKey, {
-			cluster: "eu",
-		})
+		if (pusher) {
+			let channelName = "stream-chat-" + channelId
+			let channel = pusher.subscribe(channelName)
 
-		let channel = pusher.subscribe("stream-chat-" + channelId)
+			channel.bind("message-create", ({ message }: { message: Message }) => {
+				setMessages((m) => [...m, message])
+			})
 
-		channel.bind("message-create", ({ message }: { message: Message }) => {
-			setMessages((m) => [...m, message])
-		})
-
-		return () => pusher.disconnect()
-	}, [pusherKey, channelId])
+			let p = pusher
+			return () => {
+				channel.unbind("message-create")
+				p.unsubscribe(channelName)
+			}
+		}
+	}, [pusher, channelId])
 
 	// autoscroll
 	let messagesContainer = useRef<HTMLDivElement>(null)

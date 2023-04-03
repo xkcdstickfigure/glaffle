@@ -50,11 +50,7 @@ export default function Page() {
 							))}
 						</div>
 
-						<StreamChat
-							key={`stream-chat-${user.id}`}
-							pusherKey={user.pusherKey}
-							channelId={user.id}
-						/>
+						<StreamChat key={`stream-chat-${user.id}`} channelId={user.id} />
 					</div>
 				) : (
 					<p>{user.username} is not streaming</p>
