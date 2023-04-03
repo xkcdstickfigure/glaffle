@@ -1,5 +1,6 @@
 import { trpc } from "@/lib/trpc"
 import Link from "next/link"
+import { Avatar } from "./Avatar"
 
 export const Header = () => {
 	let { data: profile, isLoading: profileLoading } = trpc.profile.useQuery()
@@ -19,17 +20,11 @@ export const Header = () => {
 					>
 						<p className="font-medium text-lg">{profile.username}</p>
 
-						{profile.avatar ? (
-							<img
-								src={`https://files.glaffle.com/avatars/${encodeURIComponent(
-									profile.id
-								)}/${encodeURIComponent(profile.avatar)}/128.png`}
-								alt=""
-								className="w-8 h-8 bg-neutral-700 rounded-md"
-							/>
-						) : (
-							<div className="w-8 h-8 bg-emerald-400 rounded-md" />
-						)}
+						<Avatar
+							userId={profile.id}
+							avatarId={profile.avatar}
+							className="w-8 h-8"
+						/>
 					</Link>
 				) : (
 					<div className="flex items-center space-x-6">

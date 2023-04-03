@@ -1,5 +1,6 @@
 import { trpc } from "@/lib/trpc"
 import Link from "next/link"
+import { Avatar } from "./Avatar"
 
 export const Sidebar = () => {
 	let { data: activity } = trpc.activity.useQuery(undefined, {
@@ -21,17 +22,7 @@ export const Sidebar = () => {
 						href={`/${username}`}
 						className="flex items-center space-x-2"
 					>
-						{avatar ? (
-							<img
-								src={`https://files.glaffle.com/avatars/${encodeURIComponent(
-									id
-								)}/${encodeURIComponent(avatar)}/128.png`}
-								alt=""
-								className="w-10 h-10 bg-neutral-700 rounded-md"
-							/>
-						) : (
-							<div className="w-10 h-10 bg-emerald-400 rounded-md" />
-						)}
+						<Avatar userId={id} avatarId={avatar} className="w-10 h-10" />
 
 						<div>
 							<p className="font-medium">{username}</p>

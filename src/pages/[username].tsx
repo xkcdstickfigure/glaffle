@@ -1,9 +1,11 @@
+import { useEffect } from "react"
 import { trpc } from "@/lib/trpc"
 import { useRouter } from "next/router"
 import { Layout } from "@/components/Layout"
 import { Stream } from "@/components/Stream"
 import { StreamChat } from "@/components/StreamChat"
-import { useEffect } from "react"
+import { Avatar } from "@/components/Avatar"
+import Link from "next/link"
 
 export default function Page() {
 	let router = useRouter()
@@ -41,13 +43,40 @@ export default function Page() {
 								<Stream id={user.id} />
 							</div>
 
-							<p>
-								{user.viewerCount}{" "}
-								{user.viewerCount === 1 ? "viewer" : "viewers"}
-							</p>
-							{user.viewers.map((viewer) => (
-								<p key={viewer.id}>{viewer.username}</p>
-							))}
+							<div className="p-8">
+								<div className="flex justify-between">
+									<div className="flex space-x-4">
+										<Avatar
+											userId={user.id}
+											avatarId={user.avatar}
+											className="w-20 h-20"
+										/>
+
+										<h1 className="font-semibold text-4xl">{user.username}</h1>
+									</div>
+
+									<div className="space-y-2">
+										<p className="text-neutral-400 text-sm text-right">
+											<span className="font-semibold text-white">
+												{user.viewerCount}
+											</span>{" "}
+											{user.viewerCount === 1 ? "viewer" : "viewers"}
+										</p>
+
+										<div className="flex justify-end space-x-1">
+											{user.viewers.map((viewer) => (
+												<Link key={viewer.id} href={`/${viewer.username}`}>
+													<Avatar
+														userId={viewer.id}
+														avatarId={viewer.avatar}
+														className="w-8 h-8"
+													/>
+												</Link>
+											))}
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 
 						<StreamChat key={`stream-chat-${user.id}`} channelId={user.id} />
