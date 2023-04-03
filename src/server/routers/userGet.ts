@@ -21,7 +21,7 @@ export const userGet = procedure
 		if (user.streamActive) {
 			try {
 				let rows =
-					await prisma.$queryRaw`select count(distinct "userId") from "streamView" where "channelId" = ${user.id}::uuid and "createdAt" > now() - interval '1 minute'`
+					await prisma.$queryRaw`select count(distinct "userId") from "streamView" where "channelId" = ${user.id}::uuid and "userId" != ${user.id}::uuid and "createdAt" > now() - interval '1 minute'`
 
 				// @ts-expect-error
 				viewerCount = Number(rows[0].count)
@@ -34,6 +34,9 @@ export const userGet = procedure
 			viewers = await prisma.streamView.findMany({
 				where: {
 					channelId: user.id,
+					userId: {
+						not: user.id,
+					},
 					createdAt: {
 						gt: new Date(new Date().getTime() - 60000),
 					},
