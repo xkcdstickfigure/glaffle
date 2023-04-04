@@ -2,6 +2,7 @@ import { z } from "zod"
 import { procedure } from "../trpc"
 import { prisma } from "../prisma"
 import Pusher from "pusher"
+import { v4 as uuid } from "uuid"
 import { pusherAppId, pusherKey, pusherSecret } from "@/env"
 
 const pusher = new Pusher({
@@ -22,6 +23,10 @@ export const streamChatSend = procedure
 	.mutation(async ({ input: { content, channelId }, ctx: { me } }) => {
 		if (!me) return null
 
+		// format content
+		content = content.trim()
+		if (!content) return null
+
 		// get channel
 		let channel = await prisma.user.findUnique({
 			where: {
@@ -30,25 +35,27 @@ export const streamChatSend = procedure
 		})
 		if (!channel) return null
 
+		// emit to pusher
+		let id = uuid()
+		pusher
+			.trigger("stream-chat-" + channel.id, "message-create", {
+				message: {
+					id,
+					authorId: me.id,
+					authorUsername: me.usernameDisplay,
+					content,
+					date: new Date(),
+				},
+			})
+			.catch(() => {})
+
 		// create in database
-		let message = await prisma.streamMessage.create({
+		await prisma.streamMessage.create({
 			data: {
+				id,
 				content: content.trim(),
 				authorId: me.id,
 				channelId: channel.id,
 			},
 		})
-
-		// emit to pusher
-		try {
-			pusher.trigger("stream-chat-" + channel.id, "message-create", {
-				message: {
-					id: message.id,
-					authorId: me.id,
-					authorUsername: me.usernameDisplay,
-					content: message.content,
-					date: message.createdAt,
-				},
-			})
-		} catch (err) {}
 	})
