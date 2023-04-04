@@ -19,37 +19,29 @@ export const userGet = procedure
 		// count viewers
 		let viewerCount = 0
 		if (user.streamActive) {
-			try {
-				let rows =
-					await prisma.$queryRaw`select count(distinct "userId") from "streamView" where "channelId" = ${user.id}::uuid and "userId" != ${user.id}::uuid and "createdAt" > now() - interval '1 minute'`
-
-				// @ts-expect-error
-				viewerCount = Number(rows[0].count)
-			} catch (err) {}
+			viewerCount = await prisma.user.count({
+				where: {
+					viewingId: user.id,
+					viewingDate: {
+						gt: new Date(new Date().getTime() - 60000),
+					},
+				},
+			})
 		}
 
 		// get top viewers
 		let viewers
 		if (user.streamActive) {
-			viewers = await prisma.streamView.findMany({
+			viewers = await prisma.user.findMany({
 				where: {
-					channelId: user.id,
-					userId: {
-						not: user.id,
-					},
-					createdAt: {
+					viewingId: user.id,
+					viewingDate: {
 						gt: new Date(new Date().getTime() - 60000),
 					},
 				},
-				include: {
-					user: true,
-				},
 				orderBy: {
-					user: {
-						createdAt: "asc",
-					},
+					createdAt: "asc",
 				},
-				distinct: ["userId"],
 				take: 5,
 			})
 		}
@@ -62,7 +54,7 @@ export const userGet = procedure
 			streamTitle: user.streamTitle,
 			viewerCount,
 			viewers:
-				viewers?.map(({ user: viewer }) => ({
+				viewers?.map((viewer) => ({
 					id: viewer.id,
 					username: viewer.usernameDisplay,
 					avatar: viewer.avatar,

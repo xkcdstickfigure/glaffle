@@ -11,24 +11,15 @@ export const streamView = procedure
 	.mutation(async ({ input: { channelId }, ctx: { me } }) => {
 		if (!me) return null
 
-		// count views
-		let count = await prisma.streamView.count({
-			where: {
-				userId: me.id,
-				createdAt: {
-					gt: new Date(new Date().getTime() - 30000),
+		prisma.user
+			.update({
+				where: {
+					id: me.id,
 				},
-			},
-		})
-		if (count > 0) return null
-
-		// create view
-		try {
-			await prisma.streamView.create({
 				data: {
-					userId: me.id,
-					channelId,
+					viewingId: channelId,
+					viewingDate: new Date(),
 				},
 			})
-		} catch (err) {}
+			.catch(() => {})
 	})
