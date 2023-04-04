@@ -3,6 +3,7 @@ import { trpc } from "@/lib/trpc"
 import Link from "next/link"
 import clsx from "clsx"
 import { usePusher } from "@/lib/pusher"
+import { BigInput } from "./BigInput"
 
 interface Props {
 	channelId: string
@@ -27,23 +28,22 @@ const colors = [
 ]
 
 export const StreamChat = ({ channelId }: Props) => {
+	// send message
 	let [value, setValue] = useState("")
 	let mutation = trpc.streamChatSend.useMutation()
 
-	// send message
-	let keyPress = async (key: string) => {
-		if (key === "Enter") {
-			let v = value.trim()
-			if (v) {
-				setValue("")
-				await mutation.mutateAsync({ content: v, channelId })
-			}
+	let onSubmit = async () => {
+		let v = value.trim()
+		if (v) {
+			setValue("")
+			await mutation.mutateAsync({ content: v, channelId })
 		}
 	}
 
 	// subscribe to pusher channel
 	let pusher = usePusher()
 	let [messages, setMessages] = useState<Message[]>([])
+
 	useEffect(() => {
 		if (pusher) {
 			let channelName = "stream-chat-" + channelId
@@ -64,6 +64,7 @@ export const StreamChat = ({ channelId }: Props) => {
 	// autoscroll
 	let messagesContainer = useRef<HTMLDivElement>(null)
 	let [autoScroll, setAutoScroll] = useState(true)
+
 	let onScroll: UIEventHandler<HTMLDivElement> = () => {
 		let elem = messagesContainer.current
 		if (elem) {
@@ -118,13 +119,11 @@ export const StreamChat = ({ channelId }: Props) => {
 			</div>
 
 			<div className="p-4">
-				<textarea
+				<BigInput
 					placeholder="Send a message"
 					value={value}
 					onChange={(e) => setValue(e.target.value.trimStart())}
-					onKeyDown={(e) => keyPress(e.key)}
-					autoFocus={true}
-					className="bg-neutral-800 placeholder-neutral-600 text-sm rounded-md w-full h-16 resize-none p-2 border border-neutral-700"
+					onSubmit={onSubmit}
 				/>
 			</div>
 		</div>

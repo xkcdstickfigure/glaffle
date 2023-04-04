@@ -17,7 +17,7 @@ export const activity = procedure.query(async () => {
 			id: streamer.id,
 			username: streamer.usernameDisplay,
 			avatar: streamer.avatar,
-			startedAt: streamer.streamStartedAt ?? new Date(),
+			title: streamer.streamTitle ?? "",
 		})),
 	}
 })

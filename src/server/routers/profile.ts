@@ -8,5 +8,6 @@ export const profile = procedure.query(async ({ ctx: { me } }) => {
 		username: me.usernameDisplay,
 		avatar: me.avatar,
 		streamActive: me.streamActive,
+		streamPublished: me.streamPublished,
 	}
 })

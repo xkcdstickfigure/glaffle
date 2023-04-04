@@ -4,6 +4,7 @@ import { activity } from "./activity"
 import { userGet } from "./userGet"
 import { streamView } from "./streamView"
 import { streamChatSend } from "./streamChatSend"
+import { streamPublish } from "./streamPublish"
 
 export const appRouter = router({
 	profile,
@@ -11,6 +12,7 @@ export const appRouter = router({
 	userGet,
 	streamView,
 	streamChatSend,
+	streamPublish,
 })
 
 export type AppRouter = typeof appRouter

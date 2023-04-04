@@ -45,7 +45,7 @@ export default function Page() {
 
 							<div className="p-8">
 								<div className="flex justify-between">
-									<div className="flex space-x-4">
+									<div className="flex items-center space-x-4">
 										<Avatar
 											userId={user.id}
 											avatarId={user.avatar}
@@ -57,7 +57,7 @@ export default function Page() {
 												{user.username}
 											</h1>
 
-											<h2 className="text-2xl text-neutral-400 font-light">
+											<h2 className="text-neutral-400 font-light">
 												{user.streamTitle ?? "Streaming Now!"}
 											</h2>
 										</div>
