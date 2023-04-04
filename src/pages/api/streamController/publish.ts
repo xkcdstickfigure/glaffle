@@ -29,7 +29,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		},
 		data: {
 			streamActive: true,
+			streamPublished: false,
 			streamStartedAt: new Date(),
+			streamTitle: null,
 		},
 	})
 
