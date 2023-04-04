@@ -19,6 +19,7 @@ model user {
 
   streamSecret    String?
   streamActive    Boolean   @default(false)
+  streamPublished Boolean   @default(false)
   streamStartedAt DateTime?
   streamTitle     String?
 

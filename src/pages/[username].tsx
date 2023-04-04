@@ -58,7 +58,7 @@ export default function Page() {
 											</h1>
 
 											<h2 className="text-2xl text-neutral-400 font-light">
-												{user.streamTitle ?? "Untitled Stream"}
+												{user.streamTitle ?? "Streaming Now!"}
 											</h2>
 										</div>
 									</div>
