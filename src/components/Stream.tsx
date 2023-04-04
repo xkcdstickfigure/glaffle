@@ -21,5 +21,5 @@ export const Stream = ({ id }: Props) => {
 		}
 	}, [id, ref])
 
-	return <video ref={ref} autoPlay muted controls className="w-full" />
+	return <video ref={ref} autoPlay controls className="w-full" />
 }
