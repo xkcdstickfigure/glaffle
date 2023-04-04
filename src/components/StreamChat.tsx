@@ -4,6 +4,7 @@ import Link from "next/link"
 import clsx from "clsx"
 import { usePusher } from "@/lib/pusher"
 import { BigInput } from "./BigInput"
+import { useRouter } from "next/router"
 
 interface Props {
 	channelId: string
@@ -28,6 +29,9 @@ const colors = [
 ]
 
 export const StreamChat = ({ channelId }: Props) => {
+	let { data: profile } = trpc.profile.useQuery()
+	let router = useRouter()
+
 	// send message
 	let [value, setValue] = useState("")
 	let mutation = trpc.streamChatSend.useMutation()
@@ -35,8 +39,10 @@ export const StreamChat = ({ channelId }: Props) => {
 	let onSubmit = async () => {
 		let v = value.trim()
 		if (v) {
-			setValue("")
-			await mutation.mutateAsync({ content: v, channelId })
+			if (profile) {
+				setValue("")
+				await mutation.mutateAsync({ content: v, channelId })
+			} else router.push("/auth")
 		}
 	}
 
