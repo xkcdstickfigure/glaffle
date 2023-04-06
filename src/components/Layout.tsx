@@ -12,6 +12,7 @@ export const Layout = ({ title, children }: Props) => (
 	<>
 		<Head>
 			<title>{`Glaffle${title ? " | " + title : ""}`}</title>
+			<link rel="icon" href="/assets/square.svg" />
 		</Head>
 
 		<div className="h-full flex flex-col">
