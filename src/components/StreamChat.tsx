@@ -92,7 +92,7 @@ export const StreamChat = ({ channelId }: Props) => {
 			<div
 				ref={messagesContainer}
 				onScroll={onScroll}
-				className="space-y-4 text-xs overflow-auto p-4"
+				className="space-y-4 text-sm overflow-auto p-4"
 			>
 				{messages.map((message) => {
 					let date = new Date(message.date)

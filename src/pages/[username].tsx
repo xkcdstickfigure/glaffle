@@ -53,7 +53,7 @@ export default function Page() {
 										/>
 
 										<div>
-											<h1 className="text-4xl font-semibold">
+											<h1 className="text-2xl font-semibold">
 												{user.username}
 											</h1>
 
