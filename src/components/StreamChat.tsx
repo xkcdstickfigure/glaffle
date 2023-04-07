@@ -88,7 +88,7 @@ export const StreamChat = ({ channelId }: Props) => {
 	}, [messagesContainer, autoScroll, messages])
 
 	return (
-		<div className="bg-neutral-900 border-l border-neutral-800 w-80 flex-shrink-0 flex flex-col justify-between">
+		<div className="bg-neutral-900 border-l border-neutral-800 w-80 flex-shrink-0 hidden md:flex flex-col justify-between">
 			<div
 				ref={messagesContainer}
 				onScroll={onScroll}

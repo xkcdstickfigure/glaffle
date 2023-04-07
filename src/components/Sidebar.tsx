@@ -11,7 +11,7 @@ export const Sidebar = () => {
 	})
 
 	return (
-		<div className="bg-neutral-900 border-r border-neutral-800 w-64 flex-shrink-0 flex flex-col justify-between">
+		<div className="bg-neutral-900 border-r border-neutral-800 w-64 flex-shrink-0 hidden lg:flex flex-col justify-between">
 			<div className="p-4 space-y-4">
 				<p className="uppercase font-semibold text-sm">Streaming Now</p>
 
