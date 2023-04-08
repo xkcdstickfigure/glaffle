@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { trpc } from "@/lib/trpc"
 import { useRouter } from "next/router"
-import { Layout } from "@/components/Layout"
+import { Layout } from "@/layout/Layout"
 import { Stream } from "@/components/Stream"
 import { StreamChat } from "@/components/StreamChat"
 import { Avatar } from "@/components/Avatar"

@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { trpc } from "@/lib/trpc"
 import Link from "next/link"
-import { Avatar } from "./Avatar"
-import { BigInput } from "./BigInput"
+import { Avatar } from "@/components/Avatar"
+import { BigInput } from "@/components/BigInput"
 
 export const Sidebar = () => {
 	let { data: profile } = trpc.profile.useQuery()

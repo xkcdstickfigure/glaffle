@@ -1,6 +1,6 @@
 import { trpc } from "@/lib/trpc"
 import Link from "next/link"
-import { Avatar } from "./Avatar"
+import { Avatar } from "@/components/Avatar"
 
 export const Header = () => {
 	let { data: profile, isLoading: profileLoading } = trpc.profile.useQuery()
