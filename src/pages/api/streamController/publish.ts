@@ -22,35 +22,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	if (!user || !user.streamSecret || user.streamSecret !== secret)
 		return res.status(400).send("invalid stream key")
 
-	// get current stream
-	let stream = await prisma.stream.findFirst({
-		where: {
-			userId: user.id,
-			OR: [
-				{
-					endedAt: null,
-				},
-				{
-					endedAt: {
-						gt: new Date(new Date().getTime() - 1000 * 60),
-					},
-				},
-			],
-		},
-	})
+	// determine whether to resume previous stream
+	let hasStarted = !!user.streamStartedAt
+	let hasEnded = !!user.streamEndedAt
+	let hasEndedRecently = user.streamEndedAt
+		? user.streamEndedAt.getTime() > new Date().getTime() - 60000
+		: false
+	let resume = hasStarted && (!hasEnded || hasEndedRecently)
 
-	if (stream) {
-		// resume previous stream
-		await prisma.stream.update({
-			where: {
-				id: stream.id,
-			},
-			data: {
-				endedAt: null,
-			},
-		})
-
-		// update user
+	if (resume) {
+		// resume stream
 		await prisma.user.update({
 			where: {
 				id: user.id,
@@ -60,14 +41,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			},
 		})
 	} else {
-		// create new stream
-		await prisma.stream.create({
-			data: {
-				userId: user.id,
-			},
-		})
-
-		// update user
+		// start new stream, reset information
 		await prisma.user.update({
 			where: {
 				id: user.id,

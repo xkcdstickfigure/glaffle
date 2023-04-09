@@ -22,17 +22,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	if (!user || !user.streamSecret || user.streamSecret !== secret)
 		return res.status(400).send("invalid stream key")
 
-	// update stream
-	await prisma.stream.updateMany({
-		where: {
-			userId: user.id,
-			endedAt: null,
-		},
-		data: {
-			endedAt: new Date(),
-		},
-	})
-
 	// update user
 	await prisma.user.update({
 		where: {
@@ -40,6 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		},
 		data: {
 			streamActive: false,
+			streamEndedAt: new Date(),
 		},
 	})
 

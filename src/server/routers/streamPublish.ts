@@ -14,18 +14,6 @@ export const streamPublish = procedure
 		title = title.trim()
 		if (title.length > 72) return false
 
-		// update stream
-		await prisma.stream.updateMany({
-			where: {
-				userId: me.id,
-				endedAt: null,
-			},
-			data: {
-				publishedAt: new Date(),
-				title,
-			},
-		})
-
 		// update user
 		await prisma.user.update({
 			where: {
