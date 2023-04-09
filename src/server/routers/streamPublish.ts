@@ -21,6 +21,7 @@ export const streamPublish = procedure
 				endedAt: null,
 			},
 			data: {
+				publishedAt: new Date(),
 				title,
 			},
 		})
