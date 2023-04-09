@@ -9,12 +9,23 @@ export const streamPublish = procedure
 		})
 	)
 	.mutation(async ({ input: { title }, ctx: { me } }) => {
-		if (!me || !me.streamActive || me.streamPublished) return false
+		if (!me || !me.streamActive || me.streamPublished) return
 
 		title = title.trim()
-		console.log(title.length)
-		if (title.length > 72) return false
+		if (title.length > 72) return
 
+		// update stream
+		await prisma.stream.updateMany({
+			where: {
+				userId: me.id,
+				endedAt: null,
+			},
+			data: {
+				title,
+			},
+		})
+
+		// update user
 		await prisma.user.update({
 			where: {
 				id: me.id,
@@ -24,6 +35,4 @@ export const streamPublish = procedure
 				streamTitle: title,
 			},
 		})
-
-		return true
 	})

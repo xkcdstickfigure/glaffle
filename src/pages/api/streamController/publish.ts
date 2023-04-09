@@ -22,18 +22,64 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	if (!user || !user.streamSecret || user.streamSecret !== secret)
 		return res.status(400).send("invalid stream key")
 
-	// set stream active
-	await prisma.user.update({
+	// get current stream
+	let stream = await prisma.stream.findFirst({
 		where: {
-			id: user.id,
-		},
-		data: {
-			streamActive: true,
-			streamPublished: false,
-			streamStartedAt: new Date(),
-			streamTitle: null,
+			userId: user.id,
+			OR: [
+				{
+					endedAt: null,
+				},
+				{
+					endedAt: {
+						gt: new Date(new Date().getTime() - 1000 * 60),
+					},
+				},
+			],
 		},
 	})
+
+	if (stream) {
+		// resume previous stream
+		await prisma.stream.update({
+			where: {
+				id: stream.id,
+			},
+			data: {
+				endedAt: null,
+			},
+		})
+
+		// update user
+		await prisma.user.update({
+			where: {
+				id: user.id,
+			},
+			data: {
+				streamActive: true,
+			},
+		})
+	} else {
+		// create new stream
+		await prisma.stream.create({
+			data: {
+				userId: user.id,
+			},
+		})
+
+		// update user
+		await prisma.user.update({
+			where: {
+				id: user.id,
+			},
+			data: {
+				streamActive: true,
+				streamPublished: false,
+				streamStartedAt: new Date(),
+				streamTitle: null,
+			},
+		})
+	}
 
 	// response
 	res.send(null)
