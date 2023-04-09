@@ -55,8 +55,8 @@ const PublishStream = () => {
 
 	let onSubmit = async () => {
 		setLoading(true)
-		let data = await mutation.mutateAsync({ title: value.trim() })
-		if (data) refetch()
+		let success = await mutation.mutateAsync({ title: value.trim() })
+		if (success) refetch()
 		else {
 			setValue("")
 			setLoading(false)
