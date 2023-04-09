@@ -21,11 +21,11 @@ export const streamChatSend = procedure
 		})
 	)
 	.mutation(async ({ input: { content, channelId }, ctx: { me } }) => {
-		if (!me) return null
+		if (!me) return
 
 		// format content
 		content = content.trim()
-		if (!content) return null
+		if (!content) return
 
 		// get channel
 		let channel = await prisma.user.findUnique({
@@ -33,7 +33,7 @@ export const streamChatSend = procedure
 				id: channelId,
 			},
 		})
-		if (!channel) return null
+		if (!channel) return
 
 		// emit to pusher
 		let id = uuid()

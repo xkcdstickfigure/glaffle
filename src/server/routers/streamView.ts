@@ -9,7 +9,7 @@ export const streamView = procedure
 		})
 	)
 	.mutation(async ({ input: { channelId }, ctx: { me } }) => {
-		if (!me) return null
+		if (!me) return
 
 		prisma.user
 			.update({
