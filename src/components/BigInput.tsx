@@ -18,7 +18,7 @@ export const BigInput = ({ onSubmit, ...props }: Props) => {
 	return (
 		<textarea
 			onKeyDown={(e) => keyPress(e.key)}
-			className="bg-neutral-800 placeholder-neutral-600 text-sm rounded-md w-full h-16 resize-none p-2 border border-neutral-700"
+			className="bg-neutral-800 border border-neutral-700 placeholder-neutral-600 focus:border-neutral-400 outline-none text-sm rounded-md w-full h-16 resize-none p-2"
 			{...props}
 		/>
 	)

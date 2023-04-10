@@ -15,6 +15,7 @@ model user {
   email           String
   name            String
   avatar          String?
+  description     String?
   createdAt       DateTime @default(now()) @db.Timestamptz(3)
 
   streamSecret    String?

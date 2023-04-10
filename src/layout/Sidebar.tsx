@@ -35,7 +35,7 @@ export const Sidebar = () => {
 				(profile.streamPublished ? (
 					<Link
 						href={`/${profile.username}`}
-						className="border border-neutral-700 m-2 rounded-md p-4 flex items-center space-x-2"
+						className="bg-neutral-800 border border-neutral-700 m-2 rounded-md p-4 flex items-center space-x-2"
 					>
 						<div className="bg-pink-600 rounded-full w-4 h-4" />
 						<p className="font-bold">You're Live!</p>

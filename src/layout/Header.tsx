@@ -14,10 +14,7 @@ export const Header = () => {
 
 			{!profileLoading &&
 				(profile ? (
-					<Link
-						href={`/${profile.username}`}
-						className="flex items-center space-x-2"
-					>
+					<Link href="/settings" className="flex items-center space-x-2">
 						<p className="font-medium text-lg">{profile.username}</p>
 
 						<Avatar
