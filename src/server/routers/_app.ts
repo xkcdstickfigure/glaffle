@@ -1,6 +1,7 @@
 import { router } from "../trpc"
 import { profile } from "./profile"
 import { profileUpdate } from "./profileUpdate"
+import { avatarUpdate } from "./avatarUpdate"
 import { streamSecretReset } from "./streamSecretReset"
 import { activity } from "./activity"
 import { userGet } from "./userGet"
@@ -11,6 +12,7 @@ import { streamPublish } from "./streamPublish"
 export const appRouter = router({
 	profile,
 	profileUpdate,
+	avatarUpdate,
 	streamSecretReset,
 	activity,
 	userGet,
