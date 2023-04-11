@@ -67,7 +67,7 @@ const ProfileCard = () => {
 }
 
 const AvatarForm = () => {
-	let { data: profile } = trpc.profile.useQuery()
+	let { data: profile, refetch: profileRefetch } = trpc.profile.useQuery()
 	let input = useRef<HTMLInputElement>(null)
 	let mutation = trpc.avatarUpdate.useMutation()
 
@@ -79,11 +79,12 @@ const AvatarForm = () => {
 
 		let reader = new FileReader()
 		reader.readAsDataURL(file)
-		reader.onload = () => {
+		reader.onload = async () => {
 			let source = reader.result
 			if (typeof source !== "string") return
 
-			mutation.mutate({ source })
+			await mutation.mutateAsync({ source })
+			profileRefetch()
 		}
 	}
 
