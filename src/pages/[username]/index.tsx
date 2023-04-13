@@ -38,7 +38,7 @@ export default function Page() {
 			{user &&
 				(user.streamActive ? (
 					<div className="flex h-full">
-						<div className="flex-grow">
+						<div className="flex-grow overflow-auto">
 							<div className="w-full bg-neutral-900">
 								<Stream id={user.id} />
 							</div>
