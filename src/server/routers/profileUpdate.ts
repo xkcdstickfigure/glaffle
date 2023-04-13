@@ -15,7 +15,12 @@ export const profileUpdate = procedure
 		// formatting
 		username = username.trim() || me.usernameDisplay
 		description = description.trim()
-		if (username.length > 24 || description.length > 128) return false
+		if (
+			!username.match(/^[0-9a-zA-Z]+$/) ||
+			username.length > 24 ||
+			description.length > 128
+		)
+			return false
 
 		// update user
 		await prisma.user.update({
