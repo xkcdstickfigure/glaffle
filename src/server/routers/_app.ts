@@ -10,6 +10,7 @@ import { streamView } from "./streamView"
 import { streamChatSend } from "./streamChatSend"
 import { streamPublish } from "./streamPublish"
 import { postCreate } from "./postCreate"
+import { postGet } from "./postGet"
 
 export const appRouter = router({
 	profile,
@@ -23,6 +24,7 @@ export const appRouter = router({
 	streamChatSend,
 	streamPublish,
 	postCreate,
+	postGet,
 })
 
 export type AppRouter = typeof appRouter

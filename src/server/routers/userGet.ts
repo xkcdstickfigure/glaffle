@@ -9,6 +9,7 @@ export const userGet = procedure
 		})
 	)
 	.query(async ({ input: { username } }) => {
+		// get user
 		let user = await prisma.user.findUnique({
 			where: {
 				username: username.toLowerCase(),

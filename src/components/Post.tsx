@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Avatar } from "./Avatar"
 
 interface Props {
@@ -19,7 +20,10 @@ export const Post = ({
 	date,
 	replyCount,
 }: Props) => (
-	<div className="bg-neutral-900 border border-neutral-800 p-4 rounded-md relative">
+	<Link
+		href={`/p/${id}`}
+		className="block bg-neutral-900 border border-neutral-800 p-4 rounded-md relative"
+	>
 		<div className="space-y-2">
 			<div className="flex items-center space-x-2">
 				<Avatar userId={authorId} avatarId={authorAvatar} className="w-8 h-8" />
@@ -47,5 +51,5 @@ export const Post = ({
 				</p>
 			</div>
 		)}
-	</div>
+	</Link>
 )
