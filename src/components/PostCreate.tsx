@@ -30,11 +30,11 @@ export const PostCreate = () => {
 				placeholder="Say something..."
 				maxLength={512}
 				className={
-					"bg-transparent placeholder-neutral-600 outline-none text-sm w-full resize-none p-4 h-20"
+					"bg-transparent placeholder-neutral-600 outline-none text-sm w-full resize-none p-4 h-28"
 				}
 			/>
 
-			<div className="flex justify-between items-center p-4 pb-3">
+			<div className="flex justify-between items-center px-4 pb-3">
 				<div>
 					{value && (
 						<p className="text-xs text-neutral-400">
