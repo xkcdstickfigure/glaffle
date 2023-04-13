@@ -4,6 +4,7 @@ import { profileUpdate } from "./profileUpdate"
 import { avatarUpdate } from "./avatarUpdate"
 import { streamSecretReset } from "./streamSecretReset"
 import { activity } from "./activity"
+import { feed } from "./feed"
 import { userGet } from "./userGet"
 import { streamView } from "./streamView"
 import { streamChatSend } from "./streamChatSend"
@@ -15,6 +16,7 @@ export const appRouter = router({
 	avatarUpdate,
 	streamSecretReset,
 	activity,
+	feed,
 	userGet,
 	streamView,
 	streamChatSend,
