@@ -1,3 +1,5 @@
+// this is a .tsx file just so the tailwind color classes don't get purged
+
 const colors = [
 	"text-emerald-400",
 	"text-pink-400",
