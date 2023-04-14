@@ -5,6 +5,11 @@ export const feed = procedure.query(async () => {
 	let posts = await prisma.post.findMany({
 		include: {
 			user: true,
+			_count: {
+				select: {
+					replies: true,
+				},
+			},
 		},
 		take: 20,
 		orderBy: {
@@ -22,7 +27,7 @@ export const feed = procedure.query(async () => {
 			},
 			content: post.content,
 			date: post.createdAt,
-			replyCount: 0,
+			replyCount: post._count.replies,
 		})),
 	}
 })
