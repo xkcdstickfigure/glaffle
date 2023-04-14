@@ -13,6 +13,15 @@ export const postGet = procedure
 			where: { id },
 			include: {
 				user: true,
+				replies: {
+					include: {
+						user: true,
+					},
+					take: 50,
+					orderBy: {
+						createdAt: "desc",
+					},
+				},
 			},
 		})
 		if (!post) return null
@@ -26,5 +35,15 @@ export const postGet = procedure
 			},
 			content: post.content,
 			date: post.createdAt,
+			replies: post.replies.map((reply) => ({
+				id: reply.id,
+				author: {
+					id: reply.user.id,
+					username: reply.user.usernameDisplay,
+					avatar: reply.user.avatar,
+				},
+				content: reply.content,
+				date: reply.createdAt,
+			})),
 		}
 	})

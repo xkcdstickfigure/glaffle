@@ -30,7 +30,7 @@ export const Post = ({
 				<p className="font-medium text-lg">{authorUsername}</p>
 			</div>
 
-			<p className="text-sm">{content}</p>
+			<p className="text-sm whitespace-pre-wrap">{content}</p>
 
 			<p className="text-xs text-neutral-400">
 				{date.toLocaleString(undefined, {

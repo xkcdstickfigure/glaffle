@@ -34,6 +34,7 @@ model user {
   streamMessageAuthor  streamMessage[] @relation("streamMessageAuthor")
   streamMessageChannel streamMessage[] @relation("streamMessageChannel")
   posts                post[]
+  postReplies          postReply[]
 }
 
 model session {
@@ -63,6 +64,20 @@ model post {
   id        String   @id @default(uuid()) @db.Uuid
   content   String
   createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  user   user   @relation(fields: [userId], references: [id])
+  userId String @db.Uuid
+
+  replies postReply[]
+}
+
+model postReply {
+  id        String   @id @default(uuid()) @db.Uuid
+  content   String
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  post   post   @relation(fields: [postId], references: [id])
+  postId String @db.Uuid
 
   user   user   @relation(fields: [userId], references: [id])
   userId String @db.Uuid
