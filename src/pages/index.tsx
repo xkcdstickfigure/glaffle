@@ -8,7 +8,7 @@ export default function Page() {
 
 	return (
 		<Layout>
-			<div className="p-8 max-w-xl space-y-4">
+			<div className="p-4 sm:p-8 mx-auto max-w-xl space-y-4">
 				<PostCreate />
 
 				{feed?.posts.map((post) => (

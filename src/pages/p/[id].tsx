@@ -20,7 +20,7 @@ export default function Page() {
 			}
 		>
 			{post && (
-				<div className="p-8 max-w-xl space-y-4">
+				<div className="p-4 sm:p-8 mx-auto max-w-xl space-y-4">
 					<div className="bg-neutral-900 border border-neutral-800 p-4 rounded-md space-y-4">
 						<div className="space-y-2">
 							<div className="flex items-center space-x-2">
