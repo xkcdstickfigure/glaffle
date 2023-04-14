@@ -7,6 +7,7 @@ import Head from "next/head"
 import Link from "next/link"
 import clsx from "clsx"
 import { usePusher } from "@/lib/pusher"
+import { userColor } from "@/lib/userColor"
 
 export default function Page() {
 	let router = useRouter()
@@ -75,16 +76,6 @@ interface Message {
 	content: string
 	date: string
 }
-
-const colors = [
-	"text-emerald-400",
-	"text-pink-400",
-	"text-yellow-400",
-	"text-blue-400",
-	"text-purple-400",
-	"text-rose-400",
-	"text-orange-400",
-]
 
 export const StreamChat = ({ channelId }: { channelId: string }) => {
 	let { data: profile } = trpc.profile.useQuery()
@@ -157,19 +148,14 @@ export const StreamChat = ({ channelId }: { channelId: string }) => {
 
 					return (
 						<div key={message.id} className="overflow-hidden space-y-0.5">
-							<p>
+							<p className="space-x-1">
 								<Link
 									href={`/${message.authorUsername}`}
-									className={clsx(
-										"font-semibold",
-										colors[
-											parseInt(message.authorId.split("-")[0], 16) %
-												colors.length
-										]
-									)}
+									className={clsx("font-semibold", userColor(message.authorId))}
 								>
 									{message.authorUsername}
-								</Link>{" "}
+								</Link>
+
 								<span className="text-neutral-600">
 									{date.getHours().toString().padStart(2, "0")}:
 									{date.getMinutes().toString().padStart(2, "0")}
