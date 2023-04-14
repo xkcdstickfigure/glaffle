@@ -62,7 +62,7 @@ export default function Page() {
 							<div className="space-y-4">
 								{post.replies.map((reply) => (
 									<div key={reply.id}>
-										<div className="flex items-center space-x-2">
+										<div className="flex space-x-2">
 											<Link
 												href={`/${reply.author.username}`}
 												className="flex-shrink-0"
@@ -74,7 +74,7 @@ export default function Page() {
 												/>
 											</Link>
 
-											<div>
+											<div className="space-y-0.5">
 												<p className="space-x-1">
 													<Link
 														href={`/${reply.author.username}`}
