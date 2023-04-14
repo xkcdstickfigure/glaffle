@@ -56,50 +56,46 @@ export default function Page() {
 					</div>
 
 					{post.replies.length > 0 && (
-						<div className="bg-neutral-900 border border-neutral-800 p-4 rounded-md space-y-2">
-							<p className="font-semibold">Replies</p>
+						<div className="bg-neutral-900 border border-neutral-800 p-4 rounded-md space-y-4">
+							{post.replies.map((reply) => (
+								<div key={reply.id}>
+									<div className="flex space-x-2">
+										<Link
+											href={`/${reply.author.username}`}
+											className="flex-shrink-0"
+										>
+											<Avatar
+												userId={reply.author.id}
+												avatarId={reply.author.avatar}
+												className="w-8 h-8"
+											/>
+										</Link>
 
-							<div className="space-y-4">
-								{post.replies.map((reply) => (
-									<div key={reply.id}>
-										<div className="flex space-x-2">
-											<Link
-												href={`/${reply.author.username}`}
-												className="flex-shrink-0"
-											>
-												<Avatar
-													userId={reply.author.id}
-													avatarId={reply.author.avatar}
-													className="w-8 h-8"
-												/>
-											</Link>
+										<div className="space-y-0.5">
+											<p className="space-x-1">
+												<Link
+													href={`/${reply.author.username}`}
+													className="text-lg font-medium"
+												>
+													{reply.author.username}
+												</Link>
 
-											<div className="space-y-0.5">
-												<p className="space-x-1">
-													<Link
-														href={`/${reply.author.username}`}
-														className="text-lg font-medium"
-													>
-														{reply.author.username}
-													</Link>
+												<span className="text-neutral-400 text-xs">
+													{new Date(reply.date).toLocaleString(undefined, {
+														month: "short",
+														day: "numeric",
+														year: "numeric",
+														hour: "numeric",
+														minute: "numeric",
+													})}
+												</span>
+											</p>
 
-													<span className="text-neutral-400 text-xs">
-														{new Date(reply.date).toLocaleString(undefined, {
-															month: "short",
-															day: "numeric",
-															year: "numeric",
-															hour: "numeric",
-															minute: "numeric",
-														})}
-													</span>
-												</p>
-
-												<p className="text-xs">{reply.content}</p>
-											</div>
+											<p className="text-xs">{reply.content}</p>
 										</div>
 									</div>
-								))}
-							</div>
+								</div>
+							))}
 						</div>
 					)}
 				</div>
